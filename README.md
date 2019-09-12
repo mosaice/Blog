@@ -2,7 +2,7 @@
 
 A blogging tool powered by GitHub API. Write your blog on GitHub issue.
 
-https://mirror.am0200.com/
+https://mosaice.github.io/Blog
 
 ## Documentation
 
