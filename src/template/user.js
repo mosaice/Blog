@@ -31,6 +31,10 @@ class User {
     return this.user.bio ? `<p>${this.user.bio}</p>` : ''
   }
 
+  get status() {
+    return this.user.status ? `<div class="status">${this.user.status.emojiHTML} ${this.user.status.message}</div>` : ''
+  }
+
   render(userData) {
     this.user = userData
 
@@ -39,15 +43,16 @@ class User {
       email,
       website,
       bio,
+      status,
       container,
     } = this
-
     container.html(`
       <a href="#/">
         <img src="${user.avatarUrl}" />
       </a>
       <h1>${user.name || user.login}</h1>
       ${bio}
+      ${status}
       <div class="social">
         <a target="_blank" href="${user.url}">${githubIcon}</a>
         ${website}

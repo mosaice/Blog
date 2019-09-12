@@ -82,14 +82,14 @@ mirror.getPosts = async function getPosts(type, { cursor, e }) {
 
   if (e && e.oldURL.indexOf('/posts/') > -1) {
     await switchToHome()
-    scroller.stop(scroller.lastScrollY)
-    scroller.start(document.querySelector('.home'))
+    scroller.nativeStop(scroller.lastScrollY)
+    scroller.nativeStart(document.querySelector('.home'))
   }
 }
 
 mirror.getPost = async function getPost(number) {
-  document.title = 'loading'
-  scroller.stop(0)
+  document.title = 'Loading...'
+  scroller.nativeStop(0)
 
   if (!isMobile()) {
     topBar.style.width = 0
@@ -109,7 +109,7 @@ mirror.getPost = async function getPost(number) {
   document.title = `${post.title} - ${window.config.title}`
 
   switchToPost()
-  scroller.start(document.querySelector('.single'))
+  scroller.nativeStart(document.querySelector('.single'))
 }
 
 mirror.openComments = async function openComments(params, ele) {
@@ -168,12 +168,14 @@ router.init = (route) => {
     $('.single').addClass('page-current')
   } else {
     $('.home').addClass('page-current')
-    scroller.start(document.querySelector('.home'))
+    scroller.nativeStart(document.querySelector('.home'))
   }
 
-  if (isMobile()) {
-    $('.page').addClass('scroll')
-  }
+  // if (isMobile()) {
+  //   $('.page').addClass('scroll')
+  // }
+
+  $('.page').addClass('scroll')
 }
 
 observer.watch({
@@ -190,6 +192,7 @@ scroller.onScroll = (current, total) => {
     topBar.style.width = `${(current / total) * 100}%`
   }
 }
+
 
 router.start()
 

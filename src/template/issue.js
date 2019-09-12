@@ -12,6 +12,36 @@ class Issue {
     this.issue = null
   }
 
+  get utterances() {
+    const { number } = this.issue
+    // const { scroller } = this.mirror
+    const { title } = window.config
+    const frag = $(document.createDocumentFragment())
+    const footer = creator('div', {
+      id: 'footer',
+      innerHTML: `
+        &copy; ${(new Date()).getFullYear()} ${title}. Powered by
+        <a href="https://github.com/LoeiFy/Mirror" target="_blank">Mirror</a> .
+        <a href="https://github.com/${user}/${repository}/issues" target="_blank">Source</a>
+      `,
+    })
+
+    const comments = () => {
+      const utterances = document.createElement('script')
+      utterances.type = 'text/javascript'
+      utterances.async = true
+      utterances.setAttribute('issue-number', number)
+      utterances.setAttribute('theme', 'github-light')
+      utterances.setAttribute('repo', `${user}/${repository}`)
+      utterances.crossorigin = 'anonymous'
+      utterances.src = 'https://utteranc.es/client.js'
+      return utterances
+    }
+
+    frag.append(comments()).append(footer)
+    return frag.dom[0]
+  }
+
   get comments() {
     const { number, comments: { totalCount } } = this.issue
     const frag = $(document.createDocumentFragment())
@@ -64,6 +94,7 @@ class Issue {
     this.issue = issue
 
     const { title, bodyHTML, updatedAt } = issue
+
     const labels = issue.labels.edges
       .map(label => `
         <a
@@ -104,7 +135,8 @@ class Issue {
       .append(p)
       .append(body)
       .append(tags)
-      .append(this.comments)
+      .append(this.utterances)
+      // .append(this.comments)
 
     this.container.html('').append(frag.dom[0])
   }

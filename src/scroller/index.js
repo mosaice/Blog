@@ -1,6 +1,7 @@
 import VirtualScroll from 'virtual-scroll' // eslint-disable-line import/no-unresolved
 import raf from 'raf' // eslint-disable-line import/no-unresolved
 import isMobile from '../helper/mobile'
+import debounce from '../helper/debounce'
 
 raf.polyfill()
 
@@ -11,6 +12,7 @@ export default class extends VirtualScroll {
     this.animater = null
     this.lastScrollY = 0
     this.listener = () => null
+    this.nativeUpdate = debounce(this.nativeUpdate.bind(this), 20)
   }
 
   start(ele) {
@@ -31,6 +33,26 @@ export default class extends VirtualScroll {
 
   set onScroll(fn) {
     this.listener = fn
+  }
+
+
+  nativeUpdate(e) {
+    this.scrollY = e.target.scrollTop
+    this.listener(this.scrollY, this.child.scrollHeight - window.innerHeight)
+  }
+
+  nativeStart(ele) {
+    [this.child] = ele.children
+    this.el = ele
+    this.el.removeEventListener('scroll', this.nativeUpdate, false)
+    this.el.addEventListener('scroll', this.nativeUpdate, false)
+  }
+
+  nativeStop(y) {
+    this.lastScrollY = this.scrollY
+    if (y !== undefined) {
+      this.scrollY = y
+    }
   }
 
   stop(y) {

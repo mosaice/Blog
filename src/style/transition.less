@@ -1,6 +1,19 @@
 .page {
   transform: translate3d(0, 0, 0);
-  background: #fff;
+  // background: #fff;
+  background: url("data:image/png;base64,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") repeat 0 0;
+  -webkit-animation: bg-scrolling 3s infinite;
+  /* Safari 4+ */
+  -moz-animation: bg-scrolling 3s infinite;
+  /* Fx 5+ */
+  -o-animation: bg-scrolling 3s infinite;
+  /* Opera 12+ */
+  animation: bg-scrolling 3s infinite;
+  /* IE 10+ */
+  -webkit-animation-timing-function: cubic-bezier(.53,-0.26,.36,1.28);
+  -moz-animation-timing-function: cubic-bezier(.53,-0.26,.36,1.28);
+  -o-animation-timing-function: cubic-bezier(.53,-0.26,.36,1.28);
+  animation-timing-function: cubic-bezier(.53,-0.26,.36,1.28);
   position: fixed;
   width: 100%;
   top: 0;
@@ -33,3 +46,5 @@
     transform: translate3d(-100%, 0, 0);
   }
 }
+
+

@@ -26,5 +26,8 @@
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.16.0",
     "fs-extra": "^7.0.1"
+  },
+  "dependencies": {
+    "@fratercula/falco": "^1.3.2"
   }
 }

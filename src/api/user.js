@@ -30,6 +30,11 @@ class User extends Fetcher {
         url
         bio
         login
+        company
+        status {
+          emojiHTML
+          message
+        }
       }
     }`
   }

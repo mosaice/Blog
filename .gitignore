@@ -3,3 +3,4 @@ node_modules/
 index.html
 !docs/index.html
 package-lock.json
+release/
